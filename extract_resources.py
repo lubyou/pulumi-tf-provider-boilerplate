@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import functools
 import os
@@ -55,7 +55,7 @@ def extract_resources(provider_file: str = None):
     return {
         "resources": sorted(resources),
         "data_sources": sorted(data_sources),
-        "provider_options": provider_options
+        "provider_options": provider_options,
     }
 
 
