@@ -9,7 +9,9 @@ from jinja2 import Environment, select_autoescape, FileSystemLoader
 
 DATA_SOURCE_SCHEMA_START_PATTERN = r"\s*DataSourcesMap.+schema\.Resource.+"
 RESOURCE_SCHEMA_START_PATTERN = r"\s*ResourcesMap.+schema\.Resource.+"
-RESOURCE_NAME_PATTERN = r'\s*"(\w+)"\s*:.+\(\s*\)'
+RESOURCE_NAME_PATTERN = (
+    r'\s*"(?P<snake_case>\w+)"\s*:\s*(?:dataSource|resource)(?P<camel_case>\w+)\(\s*\)'
+)
 PROVIDER_SCHEMA_START_PATTERN = r"\s*Schema:\s*map\[string\]\*schema\.Schema\s*{\s*"
 PROVIDER_SCHEMA_VAR_PATTERN = r'\s*"(\w+)":\s*{\s'
 PROVIDER_SCHEMA_ENV_VAR_PATTERN = r'\s*DefaultFunc:\s*schema\.EnvDefaultFunc\("(\w+)".+'
@@ -50,7 +52,7 @@ def extract_resources(provider_file: str = None):
             current_list = resources
 
         elif m := re.match(RESOURCE_NAME_PATTERN, line, re.IGNORECASE):
-            current_list.append(m.groups()[0])
+            current_list.append(m.groups())
 
     return {
         "resources": sorted(resources),

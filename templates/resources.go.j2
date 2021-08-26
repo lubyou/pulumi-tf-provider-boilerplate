@@ -115,13 +115,13 @@ func Provider() tfbridge.ProviderInfo {
 		},
 		PreConfigureCallback: preConfigureCallback,
 		Resources: map[string]*tfbridge.ResourceInfo{
-			{%- for native_resource_name in resources %}
-				"{{ native_resource_name }}": {Tok: makeResource(mainMod, "{{ native_resource_name | snake_case_to_camel_case }}")},
+			{%- for res_snake_case, res_camel_case in resources %}
+				"{{ res_snake_case }}": {Tok: makeResource(mainMod, "{{ res_camel_case }}")},
 			{%- endfor %}
 		},
 		DataSources: map[string]*tfbridge.DataSourceInfo{
-			{%- for native_data_source_name in data_sources %}
-				"{{ native_data_source_name }}": {Tok: makeDataSource(mainMod, "{{ native_data_source_name | snake_case_to_camel_case }}")},
+			{%- for ds_snake_case, ds_camel_case in data_sources %}
+				"{{ ds_snake_case }}": {Tok: makeDataSource(mainMod, "Get{{ ds_camel_case }}")},
 			{%- endfor %}
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
