@@ -18,7 +18,13 @@ First, clone this repo with the name of the desired provider in place of `xyz`:
 git clone https://github.com/pulumi/pulumi-tf-provider-boilerplate pulumi-xyz
 ```
 
-Second, replace references to `xyz` with the name of your provider:
+Second, update provider/resources.go from terraform provider:
+
+```
+./extract_resources.py terraform-provider-foo/foo/provider.go -o provider/resources.go
+```
+
+Third, replace references to `xyz` with the name of your provider:
 
 ```
 make prepare NAME=foo REPOSITORY=github.com/pulumi/pulumi-foo
