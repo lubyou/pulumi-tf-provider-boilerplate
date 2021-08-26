@@ -1,6 +1,6 @@
-PROJECT_NAME := xyz Package
+PROJECT_NAME := fortios Package
 
-PACK             := xyz
+PACK             := fortios
 ORG              := pulumi
 PROJECT          := github.com/${ORG}/pulumi-${PACK}
 NODE_MODULE_NAME := @pulumi/${PACK}
@@ -28,14 +28,14 @@ prepare::
 	mv "provider/cmd/pulumi-resource-x${EMPTY_TO_AVOID_SED}yz" provider/cmd/pulumi-resource-${NAME}
 
 	if [[ "${OS}" != "Darwin" ]]; then \
-		sed -i "s,github.com/pulumi/pulumi-xyz,${REPOSITORY},g" provider/go.mod; \
+		sed -i "s,github.com/pulumi/pulumi-fortios,${REPOSITORY},g" provider/go.mod; \
 		find . ! -path './.git/*' -type f -exec sed -i "s/[x]yz/${NAME}/g" {} \; &> /dev/null; \
 	fi
 
 	# In MacOS the -i parameter needs an empty string to execute in place.
 	if [[ "${OS}" == "Darwin" ]]; then \
-		sed -i "s,github.com/pulumi/pulumi-xyz,${REPOSITORY},g" provider/go.mod; \
-		find . ! -path './.git/*' -type f -exec sed -i '' "s/[x]yz/${NAME}/g" {} \; &> /dev/null; \
+		sed -i'' "s,github.com/pulumi/pulumi-fortios,${REPOSITORY},g" provider/go.mod; \
+		find . ! -path './.git/*' -type f -exec sed -i'' "s/[x]yz/${NAME}/g" {} \; &> /dev/null; \
 	fi
 
 .PHONY: development provider build_sdks build_nodejs build_dotnet build_go build_python cleanup
