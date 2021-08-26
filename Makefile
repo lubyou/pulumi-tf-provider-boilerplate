@@ -29,13 +29,13 @@ prepare::
 
 	if [[ "${OS}" != "Darwin" ]]; then \
 		sed -i "s,github.com/pulumi/pulumi-xyz,${REPOSITORY},g" provider/go.mod; \
-		find ./ ! -path './.git/*' -type f -exec sed -i "s/[x]yz/${NAME}/g" {} \; &> /dev/null; \
+		find . ! -path './.git/*' -type f -exec sed -i "s/[x]yz/${NAME}/g" {} \; &> /dev/null; \
 	fi
 
 	# In MacOS the -i parameter needs an empty string to execute in place.
 	if [[ "${OS}" == "Darwin" ]]; then \
 		sed -i '' "s,github.com/pulumi/pulumi-xyz,${REPOSITORY},g" provider/go.mod; \
-		find ./ ! -path './.git/*' -type f -exec sed -i '' "s/[x]yz/${NAME}/g" {} \; &> /dev/null; \
+		find . ! -path './.git/*' -type f -exec sed -i '' "s/[x]yz/${NAME}/g" {} \; &> /dev/null; \
 	fi
 
 .PHONY: development provider build_sdks build_nodejs build_dotnet build_go build_python cleanup
